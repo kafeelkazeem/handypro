@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
+
 
 const SignUpForm = () => {
     const cont = {
@@ -13,6 +15,26 @@ const SignUpForm = () => {
         fontWeight: 'bold',
         border: '1px solid #03580e'
     }
+
+    const [fullName, setFullName] = useState('')
+    const [email, setEmail] = useState('')
+    const [num, setNum] = useState('')
+    const [area, setArea] = useState('')
+    const [address, setAddress] = useState('')
+    const [password, setPassword] = useState('')
+
+    const onSubmit = () =>{
+      const url = 'http://localhost/handypro/signup.php'
+      let fData = new FormData()
+      fData.append('name', fullName)
+      fData.append('email', email)
+      fData.append('num', num)
+      fData.append('area', area)
+      fData.append('address', address)
+      fData.append('password', password)
+      axios.post(url, fData).then(res => alert(res.data)).catch(error=>alert(error))
+    }
+
     return (
         <Container fluid style={cont} className="h-auto h-md-100 p-4 d-flex align-items-center justify-content-center rounded">
             <Row>
@@ -24,6 +46,8 @@ const SignUpForm = () => {
                                 <Form.Label className='text-white'>Full Name</Form.Label>
                                 <Form.Control
                                     type="text"
+                                    value = {fullName}
+                                    onChange = {(e) => setFullName(e.target.value)}
                                     required
                                 />
                             </Form.Group>
@@ -31,6 +55,8 @@ const SignUpForm = () => {
                                 <Form.Label className='text-white'>Email address</Form.Label>
                                 <Form.Control
                                     type="email"
+                                    value = {email}
+                                    onChange = {(e) => setEmail(e.target.value)}
                                     required
                                 />
                             </Form.Group>
@@ -38,6 +64,8 @@ const SignUpForm = () => {
                                 <Form.Label className='text-white'>Phone Number</Form.Label>
                                 <Form.Control
                                     type="number"
+                                    value = {num}
+                                    onChange = {(e) => setNum(e.target.value)}
                                     required
                                 />
                             </Form.Group>
@@ -45,6 +73,8 @@ const SignUpForm = () => {
                                 <Form.Label className='text-white'>Local Area</Form.Label>
                                 <Form.Control
                                     type="text"
+                                    value = {area}
+                                    onChange = {(e) => setArea(e.target.value)}
                                     required
                                 />
                             </Form.Group>
@@ -52,6 +82,8 @@ const SignUpForm = () => {
                                 <Form.Label className='text-white'>Address</Form.Label>
                                 <Form.Control
                                     type="text"
+                                    value = {address}
+                                    onChange = {(e) => setAddress(e.target.value)}
                                     required
                                 />
                             </Form.Group>
@@ -59,6 +91,8 @@ const SignUpForm = () => {
                                 <Form.Label className='text-white'>Password</Form.Label>
                                 <Form.Control
                                     type="password"
+                                    value = {password}
+                                    onChange = {(e) => setPassword(e.target.value)}
                                     required
                                 />
                             </Form.Group>
@@ -72,9 +106,10 @@ const SignUpForm = () => {
                             </Form.Group>
 
                             <div className="d-grid gap-2" style={{ marginTop: '2rem' }}>
-                                <Link to='/home' style={{textDecoration: 'none', width: '100%'}}><Button style={button} size="lg">
+                                <Button onClick={onSubmit}>Sign up</Button>
+                                {/* <Link to='/home' style={{textDecoration: 'none', width: '100%'}}><Button style={button} size="lg">
                                     Sign Up
-                                </Button></Link>
+                                </Button></Link> */}
                             </div>
                         </Form>
                     </div>
