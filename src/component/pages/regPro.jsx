@@ -40,6 +40,7 @@ const SignUpForm = () => {
             alert('Succesfull')
             Navigate('/login')
           }else{
+            alert(res.data)
             alert('A problem occured')
           }
         }    
