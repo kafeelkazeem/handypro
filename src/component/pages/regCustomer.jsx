@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 
 const SignUpForm = () => {
@@ -16,6 +16,7 @@ const SignUpForm = () => {
         border: '1px solid #03580e'
     }
 
+    const Navigate = useNavigate()
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [num, setNum] = useState('')
@@ -32,7 +33,17 @@ const SignUpForm = () => {
       fData.append('area', area)
       fData.append('address', address)
       fData.append('password', password)
-      axios.post(url, fData).then(res => alert(res.data)).catch(error=>alert(error))
+      axios.post(url, fData)
+      .then(res =>{
+          if(res.data == 'true'){
+            alert('Succesfull')
+            Navigate('/login')
+          }else{
+            alert('A proplem occured')
+          }
+        }    
+       )
+      .catch(error=>alert(error))
     }
 
     return (
