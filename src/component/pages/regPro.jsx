@@ -36,7 +36,7 @@ const SignUpForm = () => {
         fData.append('password', password)
         axios.post(url, fData)
         .then(res =>{
-          if(res.data == 'true'){
+          if(res.data){
             alert('Succesfull')
             Navigate('/login')
           }else{
@@ -149,4 +149,4 @@ const RegPro = () => {
   )
 }
 
-export default RegPro
+export default RegPro 

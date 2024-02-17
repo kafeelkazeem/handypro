@@ -35,10 +35,11 @@ const SignUpForm = () => {
       fData.append('password', password)
       axios.post(url, fData)
       .then(res =>{
-          if(res.data == 'true'){
+          if(res.data){
             alert('Succesfull')
             Navigate('/login')
           }else{
+            alert(res.data)
             alert('A proplem occured')
           }
         }    
