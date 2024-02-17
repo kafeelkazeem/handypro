@@ -6,6 +6,7 @@ import Rick from './svg/rick.jpg'
 const Cont1 = () => {
   const [name, setName] = useState('Rick Sanchez');
   const [email, setEmail] = useState('RickSanchez@example.com');
+  const [area, setArea] = useState('Tarauni');
   const [address, setAddress] = useState('123 Main St');
   const [Pnumber, setNumber] = useState('07033003300');
   const [editable, setEditable] = useState(false);
@@ -64,10 +65,22 @@ const Cont1 = () => {
               />
             </Form.Group>
 
+            <Form.Group controlId="formArea">
+              <Form.Label className='text-white'>Local Area</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter your local area"
+                value={area}
+                onChange={(e) => setArea(e.target.value)}
+                readOnly={!editable}
+                style={{border: '1px solid #000'}}
+              />
+            </Form.Group>
+
             <Form.Group controlId="formAddress">
               <Form.Label className='text-white'>Address</Form.Label>
               <Form.Control
-                as="textarea"
+                type="text"
                 placeholder="Enter your address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
