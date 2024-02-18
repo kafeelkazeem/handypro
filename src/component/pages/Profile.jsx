@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MyNav from '../navbar'
 import { Container, Row, Col, Form, Button, Image } from 'react-bootstrap';
 import Rick from './svg/rick.jpg'
+import axios from 'axios';
 
 const Cont1 = () => {
-  const [name, setName] = useState('Rick Sanchez');
-  const [email, setEmail] = useState('RickSanchez@example.com');
-  const [area, setArea] = useState('Tarauni');
-  const [address, setAddress] = useState('123 Main St');
-  const [Pnumber, setNumber] = useState('07033003300');
+  const storedVar = JSON.parse(localStorage.getItem('userDetails'))
+  const [name, setName] = useState(storedVar.name);
+  const [email, setEmail] = useState(storedVar.email);
+  const [area, setArea] = useState(storedVar.area);
+  const [address, setAddress] = useState(storedVar.address);
+  const [Pnumber, setNumber] = useState(storedVar.number);
   const [editable, setEditable] = useState(false);
 
   const handleEdit = () => {
@@ -19,12 +21,12 @@ const Cont1 = () => {
     setEditable(false);
     // You can add logic here to save the updated profile information to your backend or state.
   };
-
+  
   return (
     <Container className="mt-5">
       <Row className="align-items-center">
         <Col xs={12} md={4} className="text-center mb-3 mb-md-0">
-          <Image src={Rick} style={{width: '13rem', height: '13rem'}}roundedCircle fluid />
+          <Image src={Rick} style={{ width: '13rem', height: '13rem' }} roundedCircle fluid />
         </Col>
         <Col xs={12} md={8}>
           <h2 className="text-center text-white text-md-left">Profile Information</h2>
@@ -37,31 +39,31 @@ const Cont1 = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 readOnly={!editable}
-                style={{border: '1px solid #000'}}
+                style={{ border: '1px solid #000' }}
               />
             </Form.Group>
 
             <Form.Group controlId="formEmail">
               <Form.Label className='text-white'>Email</Form.Label>
-              <Form.Control 
+              <Form.Control
                 type="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 readOnly={!editable}
-                style={{border: '1px solid #000'}}
+                style={{ border: '1px solid #000' }}
               />
             </Form.Group>
 
             <Form.Group controlId="Phone">
               <Form.Label className='text-white'>Phone</Form.Label>
-              <Form.Control 
+              <Form.Control
                 type="number"
                 placeholder="Enter your phone number"
                 value={Pnumber}
                 onChange={(e) => setNumber(e.target.value)}
                 readOnly={!editable}
-                style={{border: '1px solid #000'}}
+                style={{ border: '1px solid #000' }}
               />
             </Form.Group>
 
@@ -73,7 +75,7 @@ const Cont1 = () => {
                 value={area}
                 onChange={(e) => setArea(e.target.value)}
                 readOnly={!editable}
-                style={{border: '1px solid #000'}}
+                style={{ border: '1px solid #000' }}
               />
             </Form.Group>
 
@@ -85,7 +87,7 @@ const Cont1 = () => {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 readOnly={!editable}
-                style={{border: '1px solid #000'}}
+                style={{ border: '1px solid #000' }}
               />
             </Form.Group>
 
@@ -110,18 +112,18 @@ const Cont1 = () => {
   );
 };
 
-const Cont = () =>{
+const Cont = () => {
   const style = {
-      backgroundColor: '#212515',
-      overflow: 'auto',
-      height: '100vh'
+    backgroundColor: '#212515',
+    overflow: 'auto',
+    height: '100vh'
   }
-  return(
-      <>
-        <div className='container-fluid' style={style}>
-          <Cont1 />
-        </div>
-      </>
+  return (
+    <>
+      <div className='container-fluid' style={style}>
+        <Cont1 />
+      </div>
+    </>
   )
 }
 

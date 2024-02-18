@@ -23,6 +23,7 @@ const Log1 = () =>{
     axios.post(url, fData)
     .then(res =>{
         if(res.data.link == 'true'){
+          localStorage.setItem('userDetails', JSON.stringify(res.data))
           navigate('/home')
         }else{
           alert(res.data.message)
