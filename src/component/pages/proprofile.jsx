@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import MyNav2 from '../pronavbar'
 import { Container, Row, Col, Form, Button, Image } from 'react-bootstrap';
 import Rick from './svg/rick.jpg'
+import axios from 'axios';
 
 const Cont1 = () => {
-  const [Bname, setName] = useState('Rick Sanchez');
-  const [email, setEmail] = useState('RickSanchez@example.com');
-  const [address, setAddress] = useState('123 Main St');
-  const [Pnumber, setNumber] = useState('07033003300');
+  const storedVar = JSON.parse(localStorage.getItem('ProUserDetails'))
+  const [Bname, setName] = useState(storedVar.Bname);
+  const [Bcat, setCat] = useState(storedVar.Bcat);
+  const [email, setEmail] = useState(storedVar.eml);
+  const [area, setArea] = useState(storedVar.area);
+  const [address, setAddress] = useState(storedVar.address);
+  const [Pnumber, setNumber] = useState(storedVar.num);
   const [editable, setEditable] = useState(false);
 
   const handleEdit = () => {
@@ -17,6 +21,22 @@ const Cont1 = () => {
   const handleSave = () => {
     setEditable(false);
     // You can add logic here to save the updated profile information to your backend or state.
+    const url = 'http://localhost/handypro/proprofile.php'
+    let fData = new FormData()
+    fData.append('Bname', Bname)
+    fData.append('Bcat', Bcat)
+    fData.append('email', email)
+    fData.append('num', Pnumber)
+    fData.append('area', area)
+    fData.append('address', address)
+    axios.post(url, fData)
+    .then(res =>{
+      if(res.data){
+        alert('successful')
+      }
+    }    
+   )
+  .catch(error=>alert(error))
   };
 
   return (
@@ -45,7 +65,8 @@ c          <h2 className="text-center text-white text-md-left">Profile Informati
               <Form.Control
                 type="text"
                 placeholder="Enter your Business Name"
-                value= 'Home Cleaning Service'
+                value= {Bcat}
+                onChange={(e) => setCat(e.target.value)}
                 readOnly={true}
                 style={{border: '1px solid #000'}}
               />
@@ -70,6 +91,18 @@ c          <h2 className="text-center text-white text-md-left">Profile Informati
                 placeholder="Enter your phone number"
                 value={Pnumber}
                 onChange={(e) => setNumber(e.target.value)}
+                readOnly={!editable}
+                style={{border: '1px solid #000'}}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formArea">
+              <Form.Label className='text-white'>Area</Form.Label>
+              <Form.Control
+                as="textarea"
+                placeholder="Enter your area"
+                value={area}
+                onChange={(e) => setArea(e.target.value)}
                 readOnly={!editable}
                 style={{border: '1px solid #000'}}
               />

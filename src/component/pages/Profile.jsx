@@ -20,6 +20,21 @@ const Cont1 = () => {
   const handleSave = () => {
     setEditable(false);
     // You can add logic here to save the updated profile information to your backend or state.
+      const url = 'http://localhost/handypro/profile.php'
+      let fData = new FormData()
+      fData.append('name', name)
+      fData.append('email', email)
+      fData.append('num', Pnumber)
+      fData.append('area', area)
+      fData.append('address', address)
+      axios.post(url, fData)
+      .then(res =>{
+         if(res.data){
+           alert('successful')
+         }
+        }    
+       )
+      .catch(error=>alert(error))
   };
   
   return (

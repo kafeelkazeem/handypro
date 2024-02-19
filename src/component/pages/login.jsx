@@ -85,6 +85,7 @@ const Log2 = () =>{
     axios.post(url, fData)
     .then(res =>{
         if(res.data.link == 'true'){
+          localStorage.setItem('ProUserDetails', JSON.stringify(res.data))
           navigate('/prohome')
         }else{
           alert(res.data.message)
