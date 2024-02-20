@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import MyNav from '../navbar'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 //import { BsSearch } from 'react-icons/bs';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -45,13 +46,42 @@ const BasicExample = (props) => {
     fontSize: '1rem',
     border: '1px solid #03580e',
   };
-
+  const [dataArray, setDataArray] = useState([])
+  const navigate = useNavigate()
+  const onSubmit = () =>{
+    const storedVar = JSON.parse(localStorage.getItem('userDetails'))
+    const area = storedVar.area;
+    const cat = props.user;
+    const url = 'http://localhost/handypro/providers.php'
+      let fData = new FormData()
+      fData.append('cat', cat)
+      fData.append('area', area)
+      axios.post(url, fData)
+      .then(res =>{
+        /*const dt = [res.data];
+        const data = dt.map(item => ({
+          id: item.id,
+          businessName: item.business_name,
+          businessCategory: item.business_category,
+          email: item.email,
+          phoneNumber: item.phone_number,
+          localArea: item.local_area,
+          localAddress: item.local_address,
+          pass: item.pass
+        }));*/
+        localStorage.setItem('ProvidersDetails', JSON.stringify(res.data))
+        setDataArray(res.data)
+        navigate('/providers')  
+       }    
+       )
+      .catch(error=>alert(error))
+   }
   return (
     <Card style={cardStyle}>
       <Card.Img variant="top" src={props.img} style={imgStyle} />
       <Card.Body>
         <div className="d-grid gap-1">
-          <Button size='sm' style={buttonStyle}>{props.user}</Button>
+          <Button onClick={onSubmit} size='sm' style={buttonStyle}>{props.user}</Button>
         </div>
       </Card.Body>
     </Card>
@@ -98,7 +128,7 @@ const category = [{
 },
 {
    comp : Catering,
-   des  : 'Catering'
+   des  : 'Caterer'
 },
 {
   comp : Cleaning ,
@@ -140,7 +170,7 @@ const SecondCont = () => {
       <div className="row row-cols-1 row-cols-md-3">
         {category.map((e, j) => (
           <div className="col mb-4" key={j}>
-            <Link style={{textDecoration: 'none'}} to='/providers'><BasicExample img={e.comp} user={e.des} /></Link>
+            <BasicExample img={e.comp} user={e.des} />
           </div>
         ))}
       </div>
