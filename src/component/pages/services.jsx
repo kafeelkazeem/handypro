@@ -58,17 +58,6 @@ const BasicExample = (props) => {
       fData.append('area', area)
       axios.post(url, fData)
       .then(res =>{
-        /*const dt = [res.data];
-        const data = dt.map(item => ({
-          id: item.id,
-          businessName: item.business_name,
-          businessCategory: item.business_category,
-          email: item.email,
-          phoneNumber: item.phone_number,
-          localArea: item.local_area,
-          localAddress: item.local_address,
-          pass: item.pass
-        }));*/
         localStorage.setItem('ProvidersDetails', JSON.stringify(res.data))
         setDataArray(res.data)
         navigate('/providers')  

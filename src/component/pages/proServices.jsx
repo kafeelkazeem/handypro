@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button, Form, Image } from 'react-bootstrap';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaEdit, FaCheck } from 'react-icons/fa';
+import axios from 'axios';
 import MyNav2 from '../pronavbar';
 import Img1 from './svg/image1.jpg'
 import Img2 from './svg/image3.jpg'
@@ -8,28 +9,95 @@ import Img3 from './svg/bg.jpg'
 import Avater from './svg/avater.png'
 
 const DescriptionComponent = ({ description, onDescriptionChange, rating }) => {
-    return (
-      <Card style={{backgroundColor: '#050a03', borderColor: 'grey'}}>
-        <Card.Body>
-          <Card.Title className='text-white'>Description</Card.Title>
-          <Form.Group controlId="descriptionForm">
-            <Form.Control style={{backgroundColor: '#151a13', color: '#848a82'}} className='text-white'  as="textarea" rows={4} value={description} onChange={onDescriptionChange} />
-          </Form.Group>
-          <Card.Title className='text-white'>Average Customer Rating</Card.Title>
-          <Card.Text>
-            {[...Array(5)].map((star, index) => (
-              <FaStar
-                key={index}
-                className="star"
-                color={index < rating ? '#ffc107' : '#e4e5e9'}
-                size={25}
-              />
-            ))}
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    );
+
+  const editButtonStyle = {
+    position: 'absolute',
+    top: '8px',
+    right: '8px',
+    background: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    color: '#fff',
+    outline: 'none',
   };
+  
+  const editControlsContainer = {
+    position: 'absolute',
+    top: '8px',
+    right: '8px',
+  };
+ 
+  const storedVar = JSON.parse(localStorage.getItem('ProUserDetails'))
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedDescription, setEditedDescription] = useState(storedVar.des);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSave = () => {
+    // Save the edited description
+    //onDescriptionChange(editedDescription);
+    setIsEditing(false);
+    const url = 'http://localhost/handypro/proService.php'
+      let fData = new FormData()
+      fData.append('des', editedDescription)
+      fData.append('email', storedVar.eml)
+      axios.post(url, fData)
+      .then(res =>{
+        if(res){
+          alert('success');
+        }  
+       }    
+       )
+      .catch(error=>alert(error))
+   }
+  return (
+    <Card style={{ backgroundColor: '#050a03', borderColor: 'grey' }}>
+      <Card.Body style={{ position: 'relative' }}>
+        <Card.Title className='text-white'>Description</Card.Title>
+        <Form.Group controlId="descriptionForm">
+          <Form.Control
+            style={{
+              backgroundColor: isEditing ? '#151a13' : 'transparent',
+              color: '#848a82',
+              border: isEditing ? '1px solid #848a82' : '1px solid #848a82',
+              borderRadius: isEditing ? '5px' : '5px',
+            }}
+            className='text-white'
+            as="textarea"
+            rows={4}
+            value={editedDescription}
+            onChange={(e) => setEditedDescription(e.target.value)}
+            readOnly={!isEditing}
+          />
+          {isEditing ? (
+            <div style={editControlsContainer}>
+              <button style={editButtonStyle} onClick={handleSave}>
+                <FaCheck color='#00ff00' />
+              </button>
+            </div>
+          ) : (
+            <button style={editButtonStyle} onClick={handleEdit}>
+              <FaEdit />
+            </button>
+          )}
+        </Form.Group>
+        <Card.Title className='text-white'>Average Customer Rating</Card.Title>
+        <Card.Text>
+          {[...Array(5)].map((star, index) => (
+            <FaStar
+              key={index}
+              className="star"
+              color={index < rating ? '#ffc107' : '#e4e5e9'}
+              size={25}
+            />
+          ))}
+        </Card.Text>
+      </Card.Body>
+    </Card>
+  );
+};
   
   const ImagesComponent = ({ images, handleDeleteImage, handleAddImage }) => {
     return (
@@ -122,12 +190,12 @@ const DescriptionComponent = ({ description, onDescriptionChange, rating }) => {
       updatedImages.splice(index, 1);
       setImages(updatedImages);
     };
-  
+    const storedVar = JSON.parse(localStorage.getItem('ProUserDetails'))
     return (
       <Container className="mt-2">
         <Row className='mb-2'>
           <Col md={12}>
-            <h1 className='text-white text-center' style={{fontSize: '3rem'}}>Rick Sanshez Tailoring Services</h1>
+            <h1 className='text-white text-center' style={{fontSize: '3rem'}}>{storedVar.Bname}</h1>
           </Col>
         </Row>
         <Row className='mb-4'>

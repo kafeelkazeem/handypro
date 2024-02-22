@@ -119,9 +119,6 @@ const SignUpForm = () => {
 
                             <div className="d-grid gap-2" style={{ marginTop: '2rem' }}>
                                 <Button onClick={onSubmit}>Sign up</Button>
-                                {/* <Link to='/home' style={{textDecoration: 'none', width: '100%'}}><Button style={button} size="lg">
-                                    Sign Up
-                                </Button></Link> */}
                             </div>
                         </Form>
                     </div>
