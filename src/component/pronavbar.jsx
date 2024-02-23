@@ -2,6 +2,7 @@ import React from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function MyNav2() {
   return (
@@ -11,9 +12,19 @@ function MyNav2() {
         <Navbar.Toggle aria-controls="basic-navbar-nav bg-white" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto" style={{fontSize: '1.3rem'}}>
-            <Nav.Link href="/ProService">Service</Nav.Link>
-            <Nav.Link href="/Appointment">Appointment</Nav.Link>
+            <Nav.Link href="/ProService">My Service</Nav.Link>
             <Nav.Link href="/ProProfile">Profile</Nav.Link>
+            <NavDropdown title="Extras" id="basic-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">About Us</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                Report
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Send feedback</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/">
+                Logout
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>

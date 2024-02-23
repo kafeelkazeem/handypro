@@ -1,12 +1,16 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import MyNav2 from '../pronavbar'
 import Button from 'react-bootstrap/Button';
 import Services from './svg/services.svg'
-import Appointment from './svg/appointment2.svg'
 import Profile from './svg/userProfile.svg'
 import Card from 'react-bootstrap/Card';
 
 function BasicExample(props) {
+  const navigate = useNavigate()
+  const nav = () =>{
+    navigate(props.link)
+  }
   return (
     <Card style={{ width: '18rem', margin: '1.5rem', marginTop: '0rem', backgroundColor: '#050a03' }}>
       <Card.Img variant="top" src={props.img} style={{width: '11rem', height: '11rem'}}/>
@@ -15,7 +19,7 @@ function BasicExample(props) {
           {props.des}
         </Card.Text>
         <div className="d-grid gap-2">
-          <Button size='lg' style={{backgroundColor: '#1eee3a', color: '#212515', fontWeight: 'bold', fontSize: '1.3rem', border: '1px solid #03580e'}}>{props.user}</Button>
+          <Button onClick = {nav} size='lg' style={{backgroundColor: '#1eee3a', color: '#212515', fontWeight: 'bold', fontSize: '1.3rem', border: '1px solid #03580e'}}>{props.user}</Button>
         </div>  
       </Card.Body>
     </Card>
@@ -28,9 +32,8 @@ const CardCont = () =>{
   }
   return(
       <div style={style} className="d-flex flex-lg-row flex-column align-items-center justify-content-center">
-         <BasicExample img={Services} user='Your Services' des='Discover reliable professional for your needs' link='/regCustomer' />
-         <BasicExample img={Appointment} user='View Appointments' des='View and manage your upcoming appointment' link='/regCustomer' />
-         <BasicExample img={Profile} user='Business Profile' des='Manage your profile information and preference' link='/regCustomer' />
+         <BasicExample img={Services} user='My Services' des='Edit descriptions, view ratings and lots more' link='/ProService' />
+         <BasicExample img={Profile} user='Business Profile' des='Manage your profile information and preference' link='/ProProfile' />
       </div>
   )
 }

@@ -46,7 +46,7 @@ const DescriptionComponent = ({ description, onDescriptionChange, rating }) => {
       axios.post(url, fData)
       .then(res =>{
         if(res){
-          alert('success');
+          
         }  
        }    
        )
