@@ -159,8 +159,9 @@ const DescriptionComponent = ({ description, onDescriptionChange, rating }) => {
   };
   
   const Content = () => {
+    const storedVar2 = JSON.parse(localStorage.getItem('ProUserDetails'))
     const [description, setDescription] = useState("Experienced professional offering quality services");
-    const [rating, setRating] = useState(4); // Set the default rating to 4
+    const [rating, setRating] = useState(storedVar2.rating); // Set the default rating to 4
     const [reviews, setReviews] = useState([
         { id: 1, text: 'Great service!', rating: 5, userName: 'John Doe', avatar: Avater },
         { id: 2, text: 'Timely and efficient.', rating: 4, userName: 'Jane Smith', avatar: Avater },

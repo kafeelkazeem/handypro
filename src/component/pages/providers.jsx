@@ -1,35 +1,65 @@
 import React, { useEffect, useState } from 'react';
-import { FaStar, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
+import { FaStar, FaPhone, FaWhatsapp, FaEnvelope, FaInstagram, FaFacebook, FaMapMarkerAlt } from 'react-icons/fa';
+import axios from 'axios';
 import MyNav from '../navbar';
 import Avater from './svg/avater.png';
-import { Container, Row, Col, Card, Button, Modal } from 'react-bootstrap';
+import Placeholder from './svg/placeholder.png';
+import { Container, Row, Col, Card, Button, Modal, Carousel } from 'react-bootstrap';
 
 const Popup = ({ show, handleClose, data }) => {
+  const [rating, setRating] = useState(0);
+
   if (!data) return null; // Check if data is available
 
+  const handleStarClick = (index) => {
+    setRating(index + 1);
+    let r = index + 1;
+    const url = 'http://localhost/handypro/rating.php'
+      let fData = new FormData()
+      fData.append('rating', r)
+      fData.append('email', data.email)
+      axios.post(url, fData)
+      .then(res =>{
+          
+       }    
+       )
+      .catch(error=>alert(error))
+  };
+
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header style={{backgroundColor: '#1eee3a'}} closeButton>
-        <Modal.Title style={{color: '#212515', fontWeight: 'bold'}}>{data.business_name}</Modal.Title>
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Header closeButton style={{ backgroundColor: '#1eee3a' }}>
+        <Modal.Title style={{ color: '#212515', fontWeight: 'bold' }}>{data.business_name}</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{backgroundColor: '#212515'}}>
-        <img src={Avater} alt="Thumbnail" style={{ width: '100px', height: '100px', display: 'block', margin: '0 auto' }} />
-        <p style={{color: '#fff'}}>{data.description}</p>
-        <p style={{color: '#fff'}}>
-          <FaMapMarkerAlt color='white' size={15} /> {data.local_area}, {data.local_address}
-        </p>
-        <p>
-          {[...Array(5)].map((star, index) => (
+      <Modal.Body style={{ backgroundColor: '#212515', color: '#fff' }}>
+        <Carousel style={{height: '280px'}}>
+          <Carousel.Item>
+            <img src={Placeholder} style={{height: '280px'}} className="d-block w-100 h-40" alt="First slide" />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img src={Placeholder} style={{height: '280px'}} className="d-block w-100 h-40" alt="Second slide" />
+          </Carousel.Item>
+        </Carousel>
+        <div className="mt-3">
+          <label style={{ fontWeight: 'bold' }}>Rate: </label>
+          {[...Array(5)].map((_, index) => (
             <FaStar
               key={index}
               className="star"
-              color={index < 3 ? '#ffc107' : '#e4e5e9'}
-              readOnly
-              size={15}
+              color={index < rating ? '#ffc107' : '#e4e5e9'}
+              size={25}
+              onClick={() => handleStarClick(index)}
+              style={{ cursor: 'pointer' }}
             />
           ))}
-        </p>
-        <Button variant="primary" onClick={() => window.location.href = `tel:${data.phone}`}><FaPhone /> Call</Button>
+        </div>
+        <div className="mt-3">
+          <Button variant="primary" className="me-3" onClick={() => window.location.href = `tel:${data.phone}`}>Call <FaPhone /></Button>
+          <Button variant="success" className="me-3" onClick={() => window.location.href = `https://wa.me/${data.whatsapp}`}><FaWhatsapp /> WhatsApp</Button>
+          <Button variant="info" className="me-3" href={`mailto:${data.email}`}><FaEnvelope /> Email</Button>
+          <Button variant="danger" className="me-3" href={data.instagram}><FaInstagram /> Instagram</Button>
+          <Button variant="primary" className="me-3 mt-3" href={data.facebook}><FaFacebook /> Facebook</Button>
+        </div>
       </Modal.Body>
     </Modal>
   );
@@ -77,7 +107,7 @@ const SearchResult = () => {
                         <FaStar
                           key={index}
                           className="star"
-                          color={index < 3 ? '#ffc107' : '#e4e5e9'}
+                          color={index < provider.rating ? '#ffc107' : '#e4e5e9'}
                           readOnly
                           size={25}
                         />
