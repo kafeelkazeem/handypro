@@ -181,6 +181,26 @@ const SearchBar = () => {
     border: '1px solid #03580e',
   };
 
+  const [value, setValue] = useState('')
+  const [dataArray, setDataArray] = useState([])
+  const navigate = useNavigate()
+  const onSubmit = () =>{
+    const storedVar = JSON.parse(localStorage.getItem('userDetails'))
+    const area = storedVar.area;
+    const cat = value;
+    const url = 'http://localhost/handypro/providers.php'
+      let fData = new FormData()
+      fData.append('cat', cat)
+      fData.append('area', area)
+      axios.post(url, fData)
+      .then(res =>{
+        localStorage.setItem('ProvidersDetails', JSON.stringify(res.data))
+        setDataArray(res.data)
+        navigate('/providers')  
+       }    
+       )
+      .catch(error=>alert(error))
+   }  
   return (
     <div className="input-group">
       <input
@@ -190,9 +210,10 @@ const SearchBar = () => {
         placeholder="Search..."
         aria-label="Search"
         aria-describedby="search-icon"
+        onChange={(e) => setValue(e.target.value)}
       />
       <div className="input-group-append">
-        <button className='btn btn-success' style={buttonStyle}>
+        <button className='btn btn-success' onClick = {onSubmit} style={buttonStyle}>
           Search
         </button>
       </div>

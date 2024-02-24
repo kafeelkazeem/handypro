@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import MyNav2 from '../pronavbar'
 import { Container, Row, Col, Form, Button, Image } from 'react-bootstrap';
-import Rick from './svg/rick.jpg'
+import Avater from './svg/avater.png'
+import { FaCamera } from 'react-icons/fa';
 import axios from 'axios';
 
 const Cont1 = () => {
@@ -12,6 +13,7 @@ const Cont1 = () => {
   const [area, setArea] = useState(storedVar.area);
   const [address, setAddress] = useState(storedVar.address);
   const [Pnumber, setNumber] = useState(storedVar.num);
+  const [profileImage, setProfileImage] = useState(localStorage.getItem(email) || Avater); // Initial image set to Rick
   const [editable, setEditable] = useState(false);
 
   const handleEdit = () => {
@@ -29,6 +31,7 @@ const Cont1 = () => {
     fData.append('num', Pnumber)
     fData.append('area', area)
     fData.append('address', address)
+    fData.append('profileImage', profileImage);
     axios.post(url, fData)
     .then(res =>{
       if(res.data){
@@ -39,11 +42,55 @@ const Cont1 = () => {
   .catch(error=>alert(error))
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setProfileImage(reader.result);
+      localStorage.setItem(email, reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <Container className="mt-5">
       <Row className="align-items-center">
         <Col xs={12} md={4} className="text-center mb-3 mb-md-0">
-          <Image src={Rick} style={{width: '13rem', height: '13rem'}}roundedCircle fluid />
+        <div style={{ position: 'relative', display: 'inline-block' }}>
+            <Image
+              src={profileImage}
+              style={{ width: '13rem', height: '13rem', border: '1px solid #1eee3a' }}
+              roundedCircle
+              fluid
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ display: 'none' }}
+              id="profileImageInput"
+            />
+            <label htmlFor="profileImageInput">
+              <FaCamera
+                style={{
+                  position: 'absolute',
+                  bottom: '5px',
+                  right: '15px',
+                  fontSize: '1.7rem',
+                  color: 'white',
+                  cursor: 'pointer',
+                  backgroundColor: 'black',
+                  padding: '5px',
+                  borderRadius: '50%',
+                }}
+                size={30}
+              />
+            </label>
+          </div>
         </Col>
         <Col xs={12} md={8}>
 c          <h2 className="text-center text-white text-md-left">Profile Information</h2>
@@ -56,7 +103,7 @@ c          <h2 className="text-center text-white text-md-left">Profile Informati
                 value={Bname}
                 onChange={(e) => setName(e.target.value)}
                 readOnly={!editable}
-                style={{border: '1px solid #000'}}
+                style={{ backgroundColor: '#050a03', color: 'white', border: '1px solid #1eee3a' }}
               />
             </Form.Group>
 
@@ -68,7 +115,7 @@ c          <h2 className="text-center text-white text-md-left">Profile Informati
                 value= {Bcat}
                 onChange={(e) => setCat(e.target.value)}
                 readOnly={true}
-                style={{border: '1px solid #000'}}
+                style={{ backgroundColor: '#050a03', color: 'white', border: '1px solid #1eee3a' }}
               />
             </Form.Group>
 
@@ -80,7 +127,7 @@ c          <h2 className="text-center text-white text-md-left">Profile Informati
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 readOnly={!editable}
-                style={{border: '1px solid #000'}}
+                style={{ backgroundColor: '#050a03', color: 'white', border: '1px solid #1eee3a' }}
               />
             </Form.Group>
 
@@ -92,7 +139,7 @@ c          <h2 className="text-center text-white text-md-left">Profile Informati
                 value={Pnumber}
                 onChange={(e) => setNumber(e.target.value)}
                 readOnly={!editable}
-                style={{border: '1px solid #000'}}
+                style={{ backgroundColor: '#050a03', color: 'white', border: '1px solid #1eee3a' }}
               />
             </Form.Group>
 
@@ -104,7 +151,7 @@ c          <h2 className="text-center text-white text-md-left">Profile Informati
                 value={area}
                 onChange={(e) => setArea(e.target.value)}
                 readOnly={!editable}
-                style={{border: '1px solid #000'}}
+                style={{ backgroundColor: '#050a03', color: 'white', border: '1px solid #1eee3a' }}
               />
             </Form.Group>
 
@@ -116,7 +163,7 @@ c          <h2 className="text-center text-white text-md-left">Profile Informati
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 readOnly={!editable}
-                style={{border: '1px solid #000'}}
+                style={{ backgroundColor: '#050a03', color: 'white', border: '1px solid #1eee3a' }}
               />
             </Form.Group>
 

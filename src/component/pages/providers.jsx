@@ -86,6 +86,10 @@ const SearchResult = () => {
     setShowPopup(false);
   };
 
+  const handleImageChange = (e) => {
+     return localStorage.getItem(e) || Avater 
+  };
+
   return (
     <Container fluid style={{ marginTop: '0rem' }} className='p-3'>
       {Array.isArray(providersData) && providersData.length > 1 ? (
@@ -95,7 +99,7 @@ const SearchResult = () => {
               <Card style={{ width: '100%', backgroundColor: '#050a03' }}>
                 <Row noGutters className="align-items-start">
                   <Col md={4} className="p-4 d-flex justify-content-start">
-                    <Card.Img src={Avater} style={{ width: '10rem', height: '10rem' }} alt="Thumbnail" />
+                    <Card.Img src={handleImageChange(provider.email)} style={{ width: '10rem', height: '10rem' }} alt="Thumbnail" />
                   </Col>
                   <Col md={8} className='p-2'>
                     <Card.Body style={{ marginLeft: '-3rem' }}>
