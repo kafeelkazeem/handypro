@@ -15,7 +15,7 @@ function MyNav() {
             <Nav.Link href="/Services">Service</Nav.Link>
             <Nav.Link href="/Profile">Profile</Nav.Link>
             <NavDropdown title="Extras" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">About Us</NavDropdown.Item>
+              <NavDropdown.Item href="/appointment">About Us</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Report
               </NavDropdown.Item>

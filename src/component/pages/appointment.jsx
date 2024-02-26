@@ -1,22 +1,8 @@
 import React from 'react'
 import MyNav from '../navbar'
 
-const Cont = () =>{
-  const style = {
-     backgroundColor: 'rgba(0,0,0,0)'
-  }
-  return(
-      <div style={style} className="d-flex flex-lg-row flex-column align-items-center justify-content-center">
-        <h1 className='text-white text-center' style={{fontSize:'4rem'}}>You have 0 appointment!</h1>  
-      </div>
-  )
-}
-
 const Container = () =>{
-  const style = {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center', 
+  const style = { 
       backgroundColor: '#212515',
       overflow: 'auto',
       height: '100vh'
@@ -24,7 +10,14 @@ const Container = () =>{
   return(
       <>
         <div className='container-fluid p-5 pt-5' style={style}>
-          <Cont />
+          <h1 style={{color: '#fff', fontSize: '2rem'}}>About Us</h1>
+          <p style={{color: '#fff', fontSize: '1.3rem'}}>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est eaque enim soluta officia. Sint nemo ipsam corrupti, quisquam beatae minima, dicta, expedita tenetur quis consequuntur sapiente voluptatum omnis veniam nesciunt!
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est eaque enim soluta officia. Sint nemo ipsam corrupti, quisquam beatae minima, dicta, expedita tenetur quis consequuntur sapiente voluptatum omnis veniam nesciunt!
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est eaque enim soluta officia. Sint nemo ipsam corrupti, quisquam beatae minima, dicta, expedita tenetur quis consequuntur sapiente voluptatum omnis veniam nesciunt!
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est eaque enim soluta officia. Sint nemo ipsam corrupti, quisquam beatae minima, dicta, expedita tenetur quis consequuntur sapiente voluptatum omnis veniam nesciunt!
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est eaque enim soluta officia. Sint nemo ipsam corrupti, quisquam beatae minima, dicta, expedita tenetur quis consequuntur sapiente voluptatum omnis veniam nesciunt!
+          </p>
         </div>
       </>
   )

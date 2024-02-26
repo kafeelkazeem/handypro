@@ -8,6 +8,7 @@ import RegCustomer from './component/pages/regCustomer';
 import Home from './component/pages/home';
 import Services from './component/pages/services';
 import Appointment from './component/pages/appointment';
+import Appointment2 from './component/pages/appointment2';
 import Profile from './component/pages/Profile';
 import RegPro from './component/pages/regPro';
 import ProHome from './component/pages/proHome';
@@ -26,6 +27,7 @@ function App() {
         <Route path='/home' element={<Home />}></Route>
         <Route path='/services' element={<Services />}></Route>
         <Route path='/appointment' element={<Appointment />}></Route>
+        <Route path='/appointment2' element={<Appointment2 />}></Route>
         <Route path='/profile' element={<Profile />}></Route>
         <Route path='/regPro' element={<RegPro />}></Route>
         <Route path='/proHome' element={<ProHome />}></Route>  

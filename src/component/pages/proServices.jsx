@@ -83,7 +83,7 @@ const DescriptionComponent = ({ description, onDescriptionChange, rating }) => {
             </button>
           )}
         </Form.Group>
-        <Card.Title className='text-white'>Average Customer Rating</Card.Title>
+        <Card.Title className='text-white mt-3'>Average Customer Rating</Card.Title>
         <Card.Text>
           {[...Array(5)].map((star, index) => (
             <FaStar
@@ -124,56 +124,56 @@ const DescriptionComponent = ({ description, onDescriptionChange, rating }) => {
     );
   };
   
-  const ReviewsComponent = ({ reviews }) => {
-    return (
-      <Card style={{backgroundColor: '#050a03', borderColor: 'grey'}}>
-        <Card.Body>
-          <Card.Title className='text-white'>Customer Reviews</Card.Title>
-          {reviews.map((review) => (
-            <div key={review.id} className="mb-3">
-              <Card style={{backgroundColor: '#151a13'}}>
-                <Card.Body>
-                  <div className="d-flex align-items-center mb-2">
-                    <Image src={review.avatar} alt={`Avatar for ${review.userName}`} style={{width: '3rem', height: '3rem'}} roundedCircle className="mr-2" />
-                    <span className='mx-3'style={{color: '#fff', fontWeight: 'bold'}}>{review.userName}</span>
-                  </div>
-                  <Card.Text className='text-white'>{review.text}</Card.Text>
-                  <Card.Text>
-                    {[...Array(5)].map((star, index) => (
-                      <FaStar
-                        key={index}
-                        className="star"
-                        color={index < review.rating ? '#ffc107' : '#e4e5e9'}
-                        readOnly
-                        size={25}
-                      />
-                    ))}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </div>
-          ))}
-        </Card.Body>
-      </Card>
-    );
-  };
+  // const ReviewsComponent = ({ reviews }) => {
+  //   return (
+  //     <Card style={{backgroundColor: '#050a03', borderColor: 'grey'}}>
+  //       <Card.Body>
+  //         <Card.Title className='text-white'>Customer Reviews</Card.Title>
+  //         {reviews.map((review) => (
+  //           <div key={review.id} className="mb-3">
+  //             <Card style={{backgroundColor: '#151a13'}}>
+  //               <Card.Body>
+  //                 <div className="d-flex align-items-center mb-2">
+  //                   <Image src={review.avatar} alt={`Avatar for ${review.userName}`} style={{width: '3rem', height: '3rem'}} roundedCircle className="mr-2" />
+  //                   <span className='mx-3'style={{color: '#fff', fontWeight: 'bold'}}>{review.userName}</span>
+  //                 </div>
+  //                 <Card.Text className='text-white'>{review.text}</Card.Text>
+  //                 <Card.Text>
+  //                   {[...Array(5)].map((star, index) => (
+  //                     <FaStar
+  //                       key={index}
+  //                       className="star"
+  //                       color={index < review.rating ? '#ffc107' : '#e4e5e9'}
+  //                       readOnly
+  //                       size={25}
+  //                     />
+  //                   ))}
+  //                 </Card.Text>
+  //               </Card.Body>
+  //             </Card>
+  //           </div>
+  //         ))}
+  //       </Card.Body>
+  //     </Card>
+  //   );
+  // };
   
   const Content = () => {
     const storedVar2 = JSON.parse(localStorage.getItem('ProUserDetails'))
     const [description, setDescription] = useState("Experienced professional offering quality services");
     const [rating, setRating] = useState(storedVar2.rating); // Set the default rating to 4
-    const [reviews, setReviews] = useState([
-        { id: 1, text: 'Great service!', rating: 5, userName: 'John Doe', avatar: Avater },
-        { id: 2, text: 'Timely and efficient.', rating: 4, userName: 'Jane Smith', avatar: Avater },
-        { id: 3, text: 'Your service is horiible.', rating: 1, userName: 'Morty Smith', avatar: Avater },
-        { id: 4, text: 'It is very affordable.', rating: 3, userName: 'Jerry Smith', avatar: Avater }
-        // Add more reviews as needed
-    ]);
+    // const [reviews, setReviews] = useState([
+    //     { id: 1, text: 'Great service!', rating: 5, userName: 'John Doe', avatar: Avater },
+    //     { id: 2, text: 'Timely and efficient.', rating: 4, userName: 'Jane Smith', avatar: Avater },
+    //     { id: 3, text: 'Your service is horiible.', rating: 1, userName: 'Morty Smith', avatar: Avater },
+    //     { id: 4, text: 'It is very affordable.', rating: 3, userName: 'Jerry Smith', avatar: Avater }
+    //     // Add more reviews as needed
+    // ]);
   
     const [images, setImages] = useState([
-      Img1,
+      /*Img1,
       Img2,
-      Img3,
+      Img3,*/
       // Add more images as needed
     ]);
   
@@ -217,11 +217,11 @@ const DescriptionComponent = ({ description, onDescriptionChange, rating }) => {
             />
           </Col>
         </Row>
-        <Row className='mb-4'>
+        {/* <Row className='mb-4'>
           <Col md={12}>
             <ReviewsComponent reviews={reviews} />
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     );
   };

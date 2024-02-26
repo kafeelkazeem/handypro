@@ -92,7 +92,7 @@ const SearchResult = () => {
 
   return (
     <Container fluid style={{ marginTop: '0rem' }} className='p-3'>
-      {Array.isArray(providersData) && providersData.length > 1 ? (
+      {Array.isArray(providersData) && providersData.length > 0 ? (
         providersData.map(provider => (
           <Row key={provider.id} className='pt-3'>
             <Col>
@@ -126,7 +126,7 @@ const SearchResult = () => {
           </Row>
         ))
       ) : (
-        <div>No data available</div>
+        <div style={{color: 'white', fontSize: '1.5rem'}}>Sorry the service provider you request are not in your area</div>
       )}
       <Popup show={showPopup} handleClose={handleClosePopup} data={selectedProvider} />
     </Container>
