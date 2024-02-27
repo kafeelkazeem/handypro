@@ -124,7 +124,7 @@ const SignUpForm = () => {
               </Form.Group>
 
               <div className="d-grid gap-2" style={{ marginTop: '2rem' }}>
-                <Button onClick={onSubmit} disabled={loading}>
+                <Button style={button} onClick={onSubmit} disabled={loading}>
                   {loading ? (
                     <>
                       <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />

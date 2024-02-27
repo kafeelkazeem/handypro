@@ -55,7 +55,7 @@ const Heading = () =>{
     }
     return(
         <>
-          <h1 style={style}>Welcome to HandyPro connecting service providers and customers</h1>
+          <h1 style={style}>Welcome to <span style={{color: '#1eee3a'}}>H</span>andy<span style={{color: '#1eee3a'}}>P</span>ro connecting service providers and customers</h1>
         </>
     )
 }

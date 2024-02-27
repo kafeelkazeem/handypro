@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import MyNav from '../navbar'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Spinner } from 'react-bootstrap';
 //import { BsSearch } from 'react-icons/bs';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -46,9 +47,11 @@ const BasicExample = (props) => {
     fontSize: '1rem',
     border: '1px solid #03580e',
   };
+  const [loading, setLoading] = useState(false)
   const [dataArray, setDataArray] = useState([])
   const navigate = useNavigate()
   const onSubmit = () =>{
+    setLoading(true)
     const storedVar = JSON.parse(localStorage.getItem('userDetails'))
     const area = storedVar.area;
     const cat = props.user;
@@ -58,6 +61,7 @@ const BasicExample = (props) => {
       fData.append('area', area)
       axios.post(url, fData)
       .then(res =>{
+        setLoading(false)
         localStorage.setItem('ProvidersDetails', JSON.stringify(res.data))
         setDataArray(res.data)
         navigate('/providers')  
@@ -70,7 +74,16 @@ const BasicExample = (props) => {
       <Card.Img variant="top" src={props.img} style={imgStyle} />
       <Card.Body>
         <div className="d-grid gap-1">
-          <Button onClick={onSubmit} size='sm' style={buttonStyle}>{props.user}</Button>
+          <Button onClick={onSubmit} size='sm' style={buttonStyle} disabled={loading}>
+            {loading ? (
+              <>
+                <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                <span className="visually-hidden">Loading...</span>
+              </>
+            ) : (
+              props.user
+            )}
+            </Button>
         </div>
       </Card.Body>
     </Card>
@@ -180,11 +193,12 @@ const SearchBar = () => {
     fontSize: '1.3rem',
     border: '1px solid #03580e',
   };
-
+  const [loading, setLoading] = useState(false)
   const [value, setValue] = useState('')
   const [dataArray, setDataArray] = useState([])
   const navigate = useNavigate()
   const onSubmit = () =>{
+    setLoading(true)
     const storedVar = JSON.parse(localStorage.getItem('userDetails'))
     const area = storedVar.area;
     const cat = value;
@@ -194,6 +208,7 @@ const SearchBar = () => {
       fData.append('area', area)
       axios.post(url, fData)
       .then(res =>{
+        setLoading(false)
         localStorage.setItem('ProvidersDetails', JSON.stringify(res.data))
         setDataArray(res.data)
         navigate('/providers')  
@@ -214,7 +229,14 @@ const SearchBar = () => {
       />
       <div className="input-group-append">
         <button className='btn btn-success' onClick = {onSubmit} style={buttonStyle}>
-          Search
+          {loading ? (
+            <>
+            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            <span className="visually-hidden">Loading...</span>
+            </>
+          ):(
+            'Search'
+          )}
         </button>
       </div>
     </div>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import MyNav from '../navbar';
 import Avater from './svg/avater.png';
 import Placeholder from './svg/placeholder.png';
+import Image1 from './svg/image1.jpg'
 import { Container, Row, Col, Card, Button, Modal, Carousel } from 'react-bootstrap';
 
 const Popup = ({ show, handleClose, data }) => {
@@ -37,7 +38,7 @@ const Popup = ({ show, handleClose, data }) => {
             <img src={Placeholder} style={{height: '280px'}} className="d-block w-100 h-40" alt="First slide" />
           </Carousel.Item>
           <Carousel.Item>
-            <img src={Placeholder} style={{height: '280px'}} className="d-block w-100 h-40" alt="Second slide" />
+            <img src={Image1} style={{height: '280px'}} className="d-block w-100 h-40" alt="Second slide" />
           </Carousel.Item>
         </Carousel>
         <div className="mt-3">

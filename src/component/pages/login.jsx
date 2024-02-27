@@ -11,6 +11,7 @@ const Log1 = () =>{
     fontWeight: 'bold',
     border: '1px solid #03580e'
   };
+  const [cond, setCond] = useState(false)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); // Introduce loading state
@@ -18,7 +19,6 @@ const Log1 = () =>{
 
   const onSubmit = () =>{
     setLoading(true); // Set loading to true when submitting
-
     const url = 'http://localhost/handypro/login.php';
     let fData = new FormData();
     fData.append('eml', email);
@@ -27,18 +27,21 @@ const Log1 = () =>{
     .then(res =>{
         setLoading(false); // Set loading to false after receiving response
         if(res.data.link === 'true'){
+          setCond(false)
           localStorage.setItem('userDetails', JSON.stringify(res.data));
           navigate('/home');
         } else {
-          alert(res.data.message);
+          setCond(true);
         }
     })  
-    .catch(error=>alert(error));
+    .catch(error=>setCond(true));
   };
-  
   return(
     <div className="p-4" style={{backgroundColor: '#050a03', margin: '3rem'}}>
       <h2 className="text-center text-white">Login as customer</h2>
+      {cond && 
+        <p className='mt-3' style={{color: '#cf2e2e'}}>Wrong email or password!</p>
+      }
       <Form>
         <Form.Group controlId="formBasicEmail">
           <Form.Label className='text-white'>Email address</Form.Label>
@@ -85,6 +88,7 @@ const Log2 = () =>{
     fontWeight: 'bold',
     border: '1px solid #03580e'
   };
+  const [cond, setCond] = useState(false)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); // Introduce loading state
@@ -101,18 +105,22 @@ const Log2 = () =>{
     .then(res =>{
         setLoading(false); // Set loading to false after receiving response
         if(res.data.link === 'true'){
+          setCond(false)          
           localStorage.setItem('ProUserDetails', JSON.stringify(res.data));
           navigate('/prohome');
         }else{
-          alert(res.data.message);
+          setCond(true)
         }
     })  
-    .catch(error=>alert(error));
+    .catch(error=>setCond(true));
   };
   
   return(
     <div className="p-4" style={{backgroundColor: '#050a03', margin: '3rem'}}>
       <h2 className="text-center text-white">Login as Professional</h2>
+      {cond && 
+        <p className='mt-3' style={{color: '#cf2e2e'}}>Wrong email or password!</p>
+      }
       <Form>
         <Form.Group controlId="formBasicEmail">
           <Form.Label className='text-white'>Email address</Form.Label>
@@ -156,10 +164,12 @@ const LogForm = () =>{
     backgroundColor: '#212515',
   };
   return(
+    <>
     <Container fluid style={cont} className="d-flex flex-lg-row flex-column align-items-center justify-content-center">
       <Log1 />
       <Log2 />
     </Container>
+    </>
   );
 };
 

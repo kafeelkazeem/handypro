@@ -80,7 +80,7 @@ const Cont1 = () => {
                   position: 'absolute',
                   bottom: '5px',
                   right: '15px',
-                  fontSize: '1.7rem',
+                  fontSize: '1.9rem',
                   color: 'white',
                   cursor: 'pointer',
                   backgroundColor: 'black',
@@ -168,7 +168,7 @@ c          <h2 className="text-center text-white text-md-left">Profile Informati
             </Form.Group>
 
             {!editable ? (
-              <Button variant="primary" className="my-1" block onClick={handleEdit}>
+              <Button style={{backgroundColor: '#1eee3a', color: '#050a03'}} className="my-1" block onClick={handleEdit}>
                 Edit Profile
               </Button>
             ) : (
