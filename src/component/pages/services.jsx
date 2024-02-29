@@ -63,6 +63,7 @@ const BasicExample = (props) => {
       .then(res =>{
         setLoading(false)
         localStorage.setItem('ProvidersDetails', JSON.stringify(res.data))
+        localStorage.setItem('SelectedCat', JSON.stringify(cat))
         setDataArray(res.data)
         navigate('/providers')  
        }    
@@ -210,6 +211,7 @@ const SearchBar = () => {
       .then(res =>{
         setLoading(false)
         localStorage.setItem('ProvidersDetails', JSON.stringify(res.data))
+        localStorage.setItem('SelectedCat', JSON.stringify(cat))
         setDataArray(res.data)
         navigate('/providers')  
        }    
@@ -228,7 +230,7 @@ const SearchBar = () => {
         onChange={(e) => setValue(e.target.value)}
       />
       <div className="input-group-append">
-        <button className='btn btn-success' onClick = {onSubmit} style={buttonStyle}>
+        <button className='btn btn-success' onClick = {onSubmit} disabled={loading} style={buttonStyle}>
           {loading ? (
             <>
             <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />

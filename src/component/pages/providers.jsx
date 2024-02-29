@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { FaStar, FaPhone, FaWhatsapp, FaEnvelope, FaInstagram, FaFacebook, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaStar, FaPhone, FaWhatsapp, FaEnvelope, FaInstagram, FaFacebook, FaMapMarkerAlt, FaSearch } from 'react-icons/fa';
+import { Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import MyNav from '../navbar';
 import Avater from './svg/avater.png';
 import Placeholder from './svg/placeholder.png';
 import Image1 from './svg/image1.jpg'
-import { Container, Row, Col, Card, Button, Modal, Carousel } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Modal, Carousel, Form } from 'react-bootstrap';
 
 const Popup = ({ show, handleClose, data }) => {
   const [rating, setRating] = useState(0);
@@ -67,9 +68,12 @@ const Popup = ({ show, handleClose, data }) => {
 };
 
 const SearchResult = () => {
+  const storedVar = JSON.parse(localStorage.getItem('userDetails'));
   const [providersData, setProvidersData] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState(null);
+  const [val, setVal] = useState(storedVar.area);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('ProvidersDetails'));
@@ -91,8 +95,50 @@ const SearchResult = () => {
      return localStorage.getItem(e) || Avater 
   };
 
+  const onSearch = () =>{
+    setLoading(true)
+    const area = val;
+    const cat = JSON.parse(localStorage.getItem('SelectedCat'));
+    const url = 'http://localhost/handypro/providers.php'
+      let fData = new FormData()
+      fData.append('cat', cat)
+      fData.append('area', area)
+      axios.post(url, fData)
+      .then(res =>{
+        setLoading(false)
+        setProvidersData(res.data)  
+       }    
+       )
+      .catch(error=>alert(error))
+   }    
   return (
     <Container fluid style={{ marginTop: '0rem' }} className='p-3'>
+        <Row className='pt-3'>
+        <Col>
+          <Form>
+            <Form.Group controlId="formLocation">
+              <Form.Label style={{ color: '#fff' }}>Location:</Form.Label>
+              <Row>
+                <Col>
+                  <Form.Control type="text" placeholder="Enter location" style={{backgroundColor: '#12140b', color: '#fff'}} value={val} onChange={(e) => setVal(e.target.value)} />
+                </Col>
+                <Col xs="auto">
+                  <Button style={{backgroundColor: '#12140b', border: 'none'}} onClick={onSearch}>
+                    {loading ? (
+                      <>
+                         <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                         <span className="visually-hidden">Loading...</span>
+                      </>
+                    ):(
+                      <FaSearch />
+                    )}
+                  </Button>
+                </Col>
+              </Row>
+            </Form.Group>
+          </Form>
+        </Col>
+      </Row>
       {Array.isArray(providersData) && providersData.length > 0 ? (
         providersData.map(provider => (
           <Row key={provider.id} className='pt-3'>
